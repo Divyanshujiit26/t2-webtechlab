@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Divyanshu</title
+</head>
+    <style>
+        body { 
+            font-family: 'Sans-Serif',Verdana, sans-serif; 
+            padding: 30px; 
+            background-color: yellow; 
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { 
+            background: lightyellow; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 600px;
+        }
+
+        h1 { color: #2c3e50; text-align: center; }
+
+        .input-section { margin-bottom: 25px; }
+        
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        
+        input { 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px;
+        }
+
+        button:hover { background-color: #219150; }
+
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+        }
+
+        th, td { 
+            padding: 12px; 
+            border-bottom: 1px solid #ddd; 
+            text-align: left; 
+        }
+
+        th { background-color: #f8f9fa; color: #333; }
+
+        #status { color: #2980b9; font-weight: bold; }
+
+        .viz-section { margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
+
+        .heatmap-grid {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>sumation</h1>
+        
+        <div class="input-section">
+            <label for="numberone">add number:</label>
+            <input type="integer" id="Inputone" placeholder="e.g., 1,2,3,4">
+            
+            <label for="numbertwo">add number 2:</label>
+            <input type="number" id="geneValue" placeholder="e.g.,1,2,3,4,5">
+            
+            <button id="checkBtn">Add/summation</button>
+        </div>
+
+        <p>Status: <span id="status">Ready</span></p>
+
+      
+
+    <script>
+        const btn = document.getElementById('checkBtn');
+ 
+        let labels = [];
+        let dataValues = [];
+
+      
+
+        btn.addEventListener('click', function() {
+            const geneInput = document.getElementById('Inputone');
+            const valInput = document.getElementById('numberone');
+            
+            const gVal = geneInput.value;
+            const eVal = valInput.value;
+
+            if (gVal === "" || eVal === "") {
+                statusSpan.innerText = "Error: Fill all fields!";
+                statusSpan.style.color = "red";
+                return;
+            }
+
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `<td>${gVal}</td><td>${eVal}</td>`;
+            tableBody.appendChild(newRow);
+
+            labels.push(gVal);
+            dataValues.push(eVal);
+            myChart.update();
+
+            const box = document.createElement('div');
+            box.className = 'heat-box';
+            const intensity = Math.floor((eVal / 100) * 255);
+            box.style.backgroundColor = `rgb(${intensity}, 50, 50)`;
+            box.innerText = gVal;
+            heatmap.appendChild(box);
+
+            statusSpan.innerText = "Data Visualized!";
+            statusSpan.style.color = "green";
+            
+            geneInput.value = "";
+            valInput.value = "";
+        });
+    </script>
+
+</body>
+</html>
